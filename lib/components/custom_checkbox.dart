@@ -1,25 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:kuseng/components/text_field_container.dart';
 
-class CustomCheckBox extends StatelessWidget {
-  const CustomCheckBox(
+import '../config/app_constants.dart';
+
+class CheckBoxTextField extends StatelessWidget {
+  const CheckBoxTextField(
       {Key? key,
       required this.callback,
       required this.value,
-      required this.child})
+      required this.hintText,
+      required this.textEditingController})
       : super(key: key);
 
   final void Function(bool?)? callback;
-  final Widget child;
+  final String hintText;
+  final TextEditingController textEditingController;
   final bool value;
   @override
   Widget build(BuildContext context) {
     return TextFieldContainer(
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          child,
-          const Spacer(),
+          Expanded(
+            child: TextField(
+              textCapitalization: TextCapitalization.words,
+              enabled: value,
+              enableIMEPersonalizedLearning: true,
+              enableInteractiveSelection: true,
+              textInputAction: TextInputAction.next,
+              enableSuggestions: true,
+              autocorrect: false,
+              controller: textEditingController,
+              cursorColor: kPrimaryColor,
+              keyboardType: TextInputType.name,
+              style: kCheckBoxTextStyle,
+              decoration: InputDecoration(
+                // hintStyle: Theme.of(context).textTheme.headline6?.copyWith(
+                //       fontWeight: FontWeight.normal,
+                //     ),
+                hintStyle: kCheckBoxTextStyle,
+                hintText: hintText,
+                border: InputBorder.none,
+              ),
+              minLines: 1,
+            ),
+          ),
+          // const Spacer(),
           Checkbox(
             // checkColor: Colors.white,
             checkColor: Colors.white,

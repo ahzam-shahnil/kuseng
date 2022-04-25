@@ -177,12 +177,6 @@ class OnBoardScreen extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(25.0)),
         ),
       ),
-      // dotsContainerDecorator: ShapeDecoration(
-      //   color: Colors.grey.shade300,
-      //   shape: const RoundedRectangleBorder(
-      //     borderRadius: BorderRadius.all(Radius.circular(8.0)),
-      //   ),
-      // ),
     );
   }
 }

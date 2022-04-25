@@ -7,18 +7,18 @@ import 'package:flutter/services.dart';
 
 // Project imports:
 import 'package:kuseng/gen/assets.gen.dart';
+import 'package:kuseng/views/intro_views/onboard_screen.dart';
 import '../../animations/page_transition.dart';
 import '../../components/text_animated_background.dart';
-import 'onboard_screen.dart';
 
-class MyCustomSplashScreen extends StatefulWidget {
-  const MyCustomSplashScreen({Key? key}) : super(key: key);
+class SpalshScreen extends StatefulWidget {
+  const SpalshScreen({Key? key}) : super(key: key);
 
   @override
-  _MyCustomSplashScreenState createState() => _MyCustomSplashScreenState();
+  _SpalshScreenState createState() => _SpalshScreenState();
 }
 
-class _MyCustomSplashScreenState extends State<MyCustomSplashScreen>
+class _SpalshScreenState extends State<SpalshScreen>
     with TickerProviderStateMixin {
   double _fontSize = 2;
   double _containerSize = 1.5;

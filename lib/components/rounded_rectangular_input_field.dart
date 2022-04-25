@@ -48,6 +48,9 @@ class RoundedRectangleInputField extends StatelessWidget {
         cursorColor: kPrimaryColor,
         keyboardType: textInputType,
         autofillHints: autofillHints,
+        style: Theme.of(context).textTheme.headline6?.copyWith(
+              fontWeight: FontWeight.normal,
+            ),
         decoration: InputDecoration(
           icon: icon != null
               ? Icon(
@@ -58,7 +61,7 @@ class RoundedRectangleInputField extends StatelessWidget {
           hintStyle: Theme.of(context)
               .textTheme
               .headline6
-              ?.copyWith(fontWeight: FontWeight.normal),
+              ?.copyWith(fontWeight: FontWeight.normal,),
           hintText: hintText,
           border: InputBorder.none,
         ),

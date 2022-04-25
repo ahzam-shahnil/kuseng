@@ -8,7 +8,8 @@ import 'package:get/get.dart';
 import 'package:kuseng/components/rounded_rectangular_input_field.dart';
 import 'package:kuseng/config/app_constants.dart';
 import 'package:kuseng/gen/assets.gen.dart';
-import 'package:kuseng/views/main_views/auth/signup_screen.dart';
+import 'package:kuseng/views/main_views/auth/sign_up/signup_screen_one.dart';
+import 'package:kuseng/views/main_views/home/home_screen.dart';
 
 import '../../../components/already_have_an_account_acheck.dart';
 import '../../../components/rectangular_password_field.dart';
@@ -71,9 +72,10 @@ class LoginScreen extends StatelessWidget {
                     height: kToolbarHeight,
                     child: ElevatedButton(
                       onPressed: () {
-                        //trim for white spaces khtm krne k lea :D
-                        // loginController.loginUser(context);
-                        log.d(kOnBoardBtnText);
+                        Get.offAll(
+                          () => const HomeScreen(),
+                           transition: Transition.native,
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
@@ -117,7 +119,10 @@ class LoginScreen extends StatelessWidget {
                     height: _height * 0.065,
                   ),
                   AlreadyHaveAnAccountCheck(
-                      press: () => Get.to(() => const SignupScreen()),
+                      press: () => Get.to(
+                            () => const SignupScreenOne(),
+                             transition: Transition.native,
+                          ),
                       login: true),
                 ]),
               ),
