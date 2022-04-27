@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:kuseng/config/app_constants.dart';
 import 'package:kuseng/gen/assets.gen.dart';
-import 'package:kuseng/views/main_views/camera_screen.dart';
+import 'package:kuseng/views/main_views/auth/sign_up/camera_screen.dart';
 
 class SignUpScreenTwo extends StatelessWidget {
   const SignUpScreenTwo({Key? key}) : super(key: key);

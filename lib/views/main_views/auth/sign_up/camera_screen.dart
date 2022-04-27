@@ -7,7 +7,7 @@ import 'package:flutter_camera_overlay/model.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:kuseng/config/app_constants.dart';
-import 'package:kuseng/views/main_views/classify_screen.dart';
+import 'package:kuseng/views/main_views/auth/sign_up/classify_screen.dart';
 
 class CameraScreen extends StatefulWidget {
   const CameraScreen({Key? key}) : super(key: key);
