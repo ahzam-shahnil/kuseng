@@ -10,6 +10,8 @@ import 'package:kuseng/views/intro_views/splash_screen.dart';
 import 'config/app_constants.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  // Flython.initialize(OpenCV.cmdToGray,);
   runApp(const MyApp());
 }
 
