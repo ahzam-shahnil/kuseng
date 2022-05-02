@@ -1,11 +1,14 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+
+// Project imports:
 import 'package:kuseng/config/app_constants.dart';
 import 'package:kuseng/gen/assets.gen.dart';
 import 'package:kuseng/views/main_views/home/provide_info_screen.dart';
-
-import '../auth/login_screen.dart';
 
 class SelfieScreen extends StatefulWidget {
   const SelfieScreen({Key? key}) : super(key: key);
@@ -21,7 +24,7 @@ class _SelfieScreenState extends State<SelfieScreen> {
       backgroundColor: Colors.transparent,
       body: SafeArea(
           child: Container(
-            decoration: const BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -31,9 +34,9 @@ class _SelfieScreenState extends State<SelfieScreen> {
             ],
           ),
         ),
-            child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: ListView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: ListView(
             children: [
               Row(
                 mainAxisSize: MainAxisSize.min,
@@ -90,7 +93,8 @@ class _SelfieScreenState extends State<SelfieScreen> {
                 child: ElevatedButton(
                   child: Text(
                     kSelfieBtnText,
-                    style: Get.textTheme.headline5?.copyWith(color: Colors.black),
+                    style:
+                        Get.textTheme.headline5?.copyWith(color: Colors.black),
                   ),
                   onPressed: () {
                     Get.to(() => const ProvideInfoScreen(),
@@ -99,9 +103,9 @@ class _SelfieScreenState extends State<SelfieScreen> {
                 ),
               ),
             ],
+          ),
         ),
-      ),
-          )),
+      )),
     );
   }
 }

@@ -1,5 +1,10 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:get/get.dart';
+
+// Project imports:
 import 'package:kuseng/config/app_constants.dart';
 
 class SquareContainer extends StatelessWidget {

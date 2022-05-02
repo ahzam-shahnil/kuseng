@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:get/get.dart';
 
+// Project imports:
 import '../animations/text_scroll_animation.dart';
 
 class TextAnimatedBackground extends StatefulWidget {

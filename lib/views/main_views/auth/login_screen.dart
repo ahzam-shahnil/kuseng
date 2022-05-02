@@ -10,7 +10,6 @@ import 'package:kuseng/config/app_constants.dart';
 import 'package:kuseng/gen/assets.gen.dart';
 import 'package:kuseng/views/main_views/auth/sign_up/signup_screen_one.dart';
 import 'package:kuseng/views/main_views/home/home_screen.dart';
-
 import '../../../components/already_have_an_account_acheck.dart';
 import '../../../components/rectangular_password_field.dart';
 

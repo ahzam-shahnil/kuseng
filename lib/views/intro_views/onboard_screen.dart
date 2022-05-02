@@ -10,7 +10,6 @@ import 'package:introduction_screen/introduction_screen.dart';
 import 'package:kuseng/config/app_constants.dart';
 import 'package:kuseng/gen/assets.gen.dart';
 import 'package:kuseng/views/main_views/auth/login_screen.dart';
-
 import '../../animations/page_transition.dart';
 
 class OnBoardScreen extends StatelessWidget {

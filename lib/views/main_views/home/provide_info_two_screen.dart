@@ -1,9 +1,13 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:get/get.dart';
+
+// Project imports:
 import 'package:kuseng/config/app_constants.dart';
 import 'package:kuseng/config/enums.dart';
 import 'package:kuseng/views/main_views/home/survey_end_screen_two.dart';
-
 import '../../../widgets/square_container.dart';
 
 class ProvideInfoTwoScreen extends StatelessWidget {

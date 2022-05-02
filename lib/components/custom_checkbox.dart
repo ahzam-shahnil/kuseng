@@ -1,6 +1,8 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:kuseng/components/text_field_container.dart';
 
+// Project imports:
+import 'package:kuseng/components/text_field_container.dart';
 import '../config/app_constants.dart';
 
 class CheckBoxTextField extends StatelessWidget {

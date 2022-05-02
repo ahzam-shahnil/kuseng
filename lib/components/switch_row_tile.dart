@@ -1,5 +1,10 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
+
+// Project imports:
 import 'package:kuseng/config/app_constants.dart';
 
 class SwitchRowTile extends StatelessWidget {

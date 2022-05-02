@@ -1,14 +1,20 @@
+// Dart imports:
 import 'dart:io';
 
+// Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+// Package imports:
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:tflite/tflite.dart';
+
+// Project imports:
 import 'package:kuseng/config/app_constants.dart';
 import 'package:kuseng/utils/toast_dialogs.dart';
 import 'package:kuseng/views/main_views/auth/login_screen.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:tflite/tflite.dart';
 
 class Classify extends StatefulWidget {
   const Classify({Key? key, required this.image, required this.ratio})

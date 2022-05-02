@@ -1,11 +1,17 @@
+// Dart imports:
 import 'dart:io';
 
-import 'package:camera/camera.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:camera/camera.dart';
 import 'package:flutter_camera_overlay/flutter_camera_overlay.dart';
 import 'package:flutter_camera_overlay/model.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+
+// Project imports:
 import 'package:kuseng/config/app_constants.dart';
 import 'package:kuseng/views/main_views/auth/sign_up/classify_screen.dart';
 

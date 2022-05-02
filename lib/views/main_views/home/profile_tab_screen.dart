@@ -1,5 +1,10 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:get/get.dart';
+
+// Project imports:
 import 'package:kuseng/config/app_constants.dart';
 import 'package:kuseng/views/intro_views/splash_screen.dart';
 

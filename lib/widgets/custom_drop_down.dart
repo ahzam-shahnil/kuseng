@@ -1,6 +1,10 @@
-import 'package:dropdown_button2/dropdown_button2.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
+import 'package:dropdown_button2/dropdown_button2.dart';
+
+// Project imports:
 import '../config/app_constants.dart';
 
 class CustomDropDown extends StatefulWidget {
