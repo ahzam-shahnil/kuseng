@@ -3,10 +3,14 @@ import 'package:get/get.dart';
 import 'package:kuseng/config/app_constants.dart';
 
 class SquareContainer extends StatelessWidget {
+  final double? height;
+  final double? width;
   const SquareContainer({
     Key? key,
     required this.child,
     required this.onTap,
+    this.height,
+    this.width,
   }) : super(key: key);
   final Widget child;
   final VoidCallback onTap;
@@ -22,8 +26,8 @@ class SquareContainer extends StatelessWidget {
         onTap: onTap,
         splashColor: Colors.purple,
         child: Container(
-          height: Get.size.height * 0.25,
-          width: Get.size.width * 0.78,
+          height: height??Get.size.height * 0.25,
+          width: width??Get.size.width * 0.78,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             border: Border.all(color: Colors.white),

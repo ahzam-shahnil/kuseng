@@ -74,7 +74,7 @@ class LoginScreen extends StatelessWidget {
                       onPressed: () {
                         Get.offAll(
                           () => const HomeScreen(),
-                           transition: Transition.native,
+                          transition: Transition.native,
                         );
                       },
                       style: ElevatedButton.styleFrom(
@@ -121,7 +121,7 @@ class LoginScreen extends StatelessWidget {
                   AlreadyHaveAnAccountCheck(
                       press: () => Get.to(
                             () => const SignupScreenOne(),
-                             transition: Transition.native,
+                            transition: Transition.native,
                           ),
                       login: true),
                 ]),

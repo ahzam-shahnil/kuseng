@@ -4,9 +4,9 @@ import 'package:flutter/services.dart';
 
 // Package imports:
 import 'package:get/get.dart';
+import 'package:kuseng/views/intro_views/splash_screen.dart';
 
 // Project imports:
-import 'package:kuseng/views/intro_views/splash_screen.dart';
 import 'config/app_constants.dart';
 
 void main() {

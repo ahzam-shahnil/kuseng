@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "924809586048",
+    "project_id": "kuseng-14107",
+    "storage_bucket": "kuseng-14107.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:924809586048:android:7e683f7ffa3f1378ea8d65",
+        "android_client_info": {
+          "package_name": "com.proapps.kuseng"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "924809586048-uj415flioj5ocpc87rvc3rpatgjej03l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZW0P4ZS6rvhBxuZimYzyubxN73f7QEgQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "924809586048-uj415flioj5ocpc87rvc3rpatgjej03l.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "924809586048-lgvighfa1m9tk50vmp6lem5dvj4npjf5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.proapps.kuseng"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

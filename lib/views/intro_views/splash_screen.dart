@@ -128,6 +128,7 @@ class _SpalshScreenState extends State<SpalshScreen>
                   // ),
                   child: Image.asset(
                     Assets.images.splashImage.path,
+                    colorBlendMode: BlendMode.clear,
                     fit: BoxFit.cover,
                   )),
             ),

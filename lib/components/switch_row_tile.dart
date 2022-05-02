@@ -31,6 +31,9 @@ class SwitchRowTile extends StatelessWidget {
             maxLines: 2,
           ),
         ),
+         SizedBox(
+          width: _width*0.02,
+        ),
         AdvancedSwitch(
           controller: _physicalController,
           activeColor: Colors.green,
