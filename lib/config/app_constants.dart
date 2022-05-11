@@ -6,7 +6,10 @@ import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 
 //? Text Constants for app
-
+const kUserCredSharedPrefKey = 'userCredential';
+const kUserTypeSharedPrefKey = 'userType';
+const kUserDb = 'users';
+// const kProfileCollection = 'profile';
 const kAppTitle = 'KUSENG';
 const kOnbardOneTxt =
     """

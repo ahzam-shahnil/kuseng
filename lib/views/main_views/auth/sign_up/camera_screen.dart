@@ -47,6 +47,7 @@ class _CameraScreenState extends State<CameraScreen> {
                   ));
             }
             return CameraOverlay(
+
               snapshot.data!.first,
               CardOverlay.byFormat(format),
               (XFile file) async {
@@ -54,12 +55,13 @@ class _CameraScreenState extends State<CameraScreen> {
 
                 Get.to(() => Classify(
                       image: File(file.path),
-                      ratio: overlay.ratio ?? 2,
+                      ratio: overlay.ratio ?? 2, isFromSelfieScreen: false,
                     ));
               },
               info:
                   'Position your ID card within the rectangle and ensure the image is perfectly readable.',
               label: 'Scanning ID Card',
+              
               loadingWidget: Align(
                   alignment: Alignment.center,
                   child: SpinKitWanderingCubes(

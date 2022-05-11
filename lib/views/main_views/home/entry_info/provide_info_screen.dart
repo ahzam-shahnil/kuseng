@@ -7,8 +7,8 @@ import 'package:get/get.dart';
 // Project imports:
 import 'package:kuseng/components/rounded_rectangular_input_field.dart';
 import 'package:kuseng/config/app_constants.dart';
+import 'package:kuseng/config/controllers.dart';
 import 'package:kuseng/config/enums.dart';
-import 'package:kuseng/views/main_views/home/provide_info_two_screen.dart';
 
 class ProvideInfoScreen extends StatelessWidget {
   const ProvideInfoScreen({Key? key}) : super(key: key);
@@ -52,10 +52,10 @@ class ProvideInfoScreen extends StatelessWidget {
                     const SizedBox(
                       width: 20,
                     ),
-                    Text(
-                      'F-123456',
-                      style: Get.textTheme.headline4,
-                    ),
+                    Obx(() => Text(
+                          clubEntryController.caseID.value,
+                          style: Get.textTheme.headline4,
+                        )),
                   ],
                 ),
               ),
@@ -118,6 +118,7 @@ class ProvideInfoScreen extends StatelessWidget {
               ),
               RoundedRectangleInputField(
                 hintText: '',
+                textController: clubEntryController.explanationController,
                 height: Get.size.height * 0.35,
               ),
               SizedBox(
@@ -137,8 +138,7 @@ class ProvideInfoScreen extends StatelessWidget {
                             ?.copyWith(color: Colors.black),
                       ),
                       onPressed: () {
-                        Get.to(() => const ProvideInfoTwoScreen(),
-                            transition: Transition.native);
+                        clubEntryController.saveExplanation();
                       },
                     ),
                   ),

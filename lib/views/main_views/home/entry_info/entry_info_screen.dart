@@ -6,19 +6,20 @@ import 'package:get/get.dart';
 
 // Project imports:
 import 'package:kuseng/config/app_constants.dart';
-import 'package:kuseng/views/main_views/home/selfie_screen.dart';
-import 'package:kuseng/views/main_views/home/survey_end_screen.dart';
+import 'package:kuseng/config/controllers.dart';
+import 'package:kuseng/model/club_model.dart';
+
 import 'package:kuseng/widgets/square_container.dart';
 
 class EntryInfoScreen extends StatelessWidget {
-  const EntryInfoScreen({Key? key}) : super(key: key);
+  final ClubModel club;
+  const EntryInfoScreen({Key? key, required this.club}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
       extendBody: true,
-
       body: SafeArea(
           child: Container(
         decoration: const BoxDecoration(
@@ -31,9 +32,9 @@ class EntryInfoScreen extends StatelessWidget {
             ],
           ),
         ),
-            child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: ListView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: ListView(
             children: [
               Row(
                 mainAxisSize: MainAxisSize.min,
@@ -52,10 +53,10 @@ class EntryInfoScreen extends StatelessWidget {
                   const SizedBox(
                     width: 20,
                   ),
-                  Text(
-                    'F-123456',
-                    style: Get.textTheme.headline4,
-                  ),
+                  Obx(() => Text(
+                        clubEntryController.caseID.value,
+                        style: Get.textTheme.headline4,
+                      )),
                 ],
               ),
               SizedBox(
@@ -82,8 +83,8 @@ class EntryInfoScreen extends StatelessWidget {
                   style: Get.textTheme.headline4,
                 ),
                 onTap: () {
-                  Get.to(() => const SurveyEndScreen(),
-                      transition: Transition.native);
+                  clubEntryController.saveUserCase(
+                      didComein: true, clubModel: club, context: context);
                 },
               ),
               SizedBox(
@@ -95,14 +96,14 @@ class EntryInfoScreen extends StatelessWidget {
                   style: Get.textTheme.headline4,
                 ),
                 onTap: () {
-                  Get.to(() => const SelfieScreen(),
-                      transition: Transition.native);
+                  clubEntryController.saveUserCase(
+                      didComein: false, clubModel: club, context: context);
                 },
               ),
             ],
+          ),
         ),
-      ),
-          )),
+      )),
     );
   }
 }

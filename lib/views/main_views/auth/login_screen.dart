@@ -2,14 +2,17 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 // Project imports:
 import 'package:kuseng/components/rounded_rectangular_input_field.dart';
 import 'package:kuseng/config/app_constants.dart';
+import 'package:kuseng/config/controllers.dart';
+import 'package:kuseng/config/firebase.dart';
 import 'package:kuseng/gen/assets.gen.dart';
-import 'package:kuseng/views/main_views/auth/sign_up/signup_screen_one.dart';
-import 'package:kuseng/views/main_views/home/home_screen.dart';
+import 'package:kuseng/utils/toast_dialogs.dart';
+import 'package:kuseng/views/main_views/auth/sign_up/signup_screen.dart';
 import '../../../components/already_have_an_account_acheck.dart';
 import '../../../components/rectangular_password_field.dart';
 
@@ -41,19 +44,34 @@ class LoginScreen extends StatelessWidget {
               AutofillGroup(
                 child: Column(children: [
                   RoundedRectangleInputField(
-                    hintText: 'Benutzername',
+                    hintText: 'Email',
                     icon: null,
-                    // textController: loginController.emailController,
+                    textController: loginController.emailController,
                     textInputType: TextInputType.name,
-                    autofillHints: const [AutofillHints.username],
+                    autofillHints: const [AutofillHints.email],
                   ),
-                  const RectangularPasswordField(
-                    autofillHints: [AutofillHints.password],
-                    // textController: loginController.passwordController,
+                  RectangularPasswordField(
+                    autofillHints: const [AutofillHints.password],
+                    textController: loginController.passwordController,
                   ),
                   TextButton(
-                    onPressed: () {
-                      log.d("Forgot Btn Clicked");
+                    onPressed: () async {
+                      if (loginController.emailController.text.trim().isEmpty) {
+                        showToast(msg: 'Enter email for password reset.');
+                        return;
+                      }
+
+                      try {
+                        await auth.sendPasswordResetEmail(
+                            email: loginController.emailController.text.trim());
+                        showToast(
+                            msg: "Password reset Email Sent",
+                            backColor: Colors.green);
+                      } on FirebaseAuthException {
+                        showToast(msg: 'Something Went Wrong.');
+                      } catch (e) {
+                        showToast(msg: 'Something Went Wrong.');
+                      }
                     },
                     child: Text(
                       kPassWordForgotTxt,
@@ -71,10 +89,7 @@ class LoginScreen extends StatelessWidget {
                     height: kToolbarHeight,
                     child: ElevatedButton(
                       onPressed: () {
-                        Get.offAll(
-                          () => const HomeScreen(),
-                          transition: Transition.native,
-                        );
+                        loginController.loginUser(context);
                       },
                       style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
@@ -119,7 +134,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                   AlreadyHaveAnAccountCheck(
                       press: () => Get.to(
-                            () => const SignupScreenOne(),
+                            () => const SignupScreen(),
                             transition: Transition.native,
                           ),
                       login: true),

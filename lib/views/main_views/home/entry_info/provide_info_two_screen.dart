@@ -6,9 +6,9 @@ import 'package:get/get.dart';
 
 // Project imports:
 import 'package:kuseng/config/app_constants.dart';
+import 'package:kuseng/config/controllers.dart';
 import 'package:kuseng/config/enums.dart';
-import 'package:kuseng/views/main_views/home/survey_end_screen_two.dart';
-import '../../../widgets/square_container.dart';
+import 'package:kuseng/widgets/square_container.dart';
 
 class ProvideInfoTwoScreen extends StatelessWidget {
   const ProvideInfoTwoScreen({Key? key}) : super(key: key);
@@ -19,7 +19,7 @@ class ProvideInfoTwoScreen extends StatelessWidget {
       backgroundColor: Colors.transparent,
       body: SafeArea(
           child: Container(
-            decoration: const BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -29,9 +29,9 @@ class ProvideInfoTwoScreen extends StatelessWidget {
             ],
           ),
         ),
-            child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: ListView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: ListView(
             children: [
               Hero(
                 tag: Tags.caseTag,
@@ -119,7 +119,8 @@ class ProvideInfoTwoScreen extends StatelessWidget {
               ),
               //* asking if they try again to enter the club
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                 child: RichText(
                   text: TextSpan(
                       text: '3. Neuer Versuch',
@@ -142,8 +143,7 @@ class ProvideInfoTwoScreen extends StatelessWidget {
                   style: Get.textTheme.headline4,
                 ),
                 onTap: () {
-                  // Get.to(() => const SurveyEndScreen(),
-                  //     transition: Transition.native);
+                  clubEntryController.saveRetryUsercase(false);
                 },
               ),
               SizedBox(
@@ -157,8 +157,7 @@ class ProvideInfoTwoScreen extends StatelessWidget {
                   style: Get.textTheme.headline4,
                 ),
                 onTap: () {
-                  // Get.to(() => const SelfieScreen(),
-                  //     transition: Transition.native);
+                  clubEntryController.saveRetryUsercase(false);
                 },
               ),
               SizedBox(
@@ -172,21 +171,23 @@ class ProvideInfoTwoScreen extends StatelessWidget {
                     width: Get.size.width * 0.8,
                     height: kToolbarHeight,
                     child: ElevatedButton(
-                     
                       child: Text(
                         //* submit btn
                         'Absenden',
-                        style: Get.textTheme.headline5?.copyWith(color: Colors.black),
+                        style: Get.textTheme.headline5
+                            ?.copyWith(color: Colors.black),
                       ),
-                      onPressed: () => Get.to(() => const SurveyEndTwoScreen()),
+                      onPressed: () => clubEntryController.saveNotEnterUserCase(
+                        context: context,
+                      ),
                     ),
                   ),
                 ),
               ),
             ],
+          ),
         ),
-      ),
-          )),
+      )),
     );
   }
 }

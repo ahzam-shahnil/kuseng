@@ -10,8 +10,8 @@ import 'package:kuseng/config/app_constants.dart';
 import 'package:kuseng/gen/assets.gen.dart';
 import 'package:kuseng/views/main_views/auth/sign_up/camera_screen.dart';
 
-class SignUpScreenTwo extends StatelessWidget {
-  const SignUpScreenTwo({Key? key}) : super(key: key);
+class PictureInfoScreen extends StatelessWidget {
+  const PictureInfoScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -8,19 +8,24 @@ import 'package:flutter/services.dart';
 // Package imports:
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:kuseng/config/controllers.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:tflite/tflite.dart';
 
 // Project imports:
 import 'package:kuseng/config/app_constants.dart';
-import 'package:kuseng/utils/toast_dialogs.dart';
-import 'package:kuseng/views/main_views/auth/login_screen.dart';
 
 class Classify extends StatefulWidget {
-  const Classify({Key? key, required this.image, required this.ratio})
-      : super(key: key);
+  const Classify({
+    Key? key,
+    required this.image,
+    this.ratio,
+    required this.isFromSelfieScreen,
+  }) : super(key: key);
   final File image;
-  final double ratio;
+
+  final bool isFromSelfieScreen;
+  final double? ratio;
 
   @override
   _ClassifyState createState() => _ClassifyState();
@@ -169,34 +174,33 @@ class _ClassifyState extends State<Classify> with TickerProviderStateMixin {
                     color: Colors.white,
                     fontSize: Get.textTheme.headline3?.fontSize),
               ),
-              SizedBox(
-                width: double.infinity,
-                child: AspectRatio(
-                  aspectRatio: widget.ratio,
-                  child: Container(
-                      padding: const EdgeInsets.all(15),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: Colors.white54),
-                        shape: BoxShape.rectangle,
-                        image: DecorationImage(
-                          fit: BoxFit.fitWidth,
-                          alignment: FractionalOffset.center,
-                          image: FileImage(widget.image),
+              widget.isFromSelfieScreen
+                  ? SizedBox(
+                      height: Get.size.height * 0.6,
+                      child: Image.file(
+                        File(
+                          widget.image.path,
                         ),
-                      )),
-                ),
-              ),
-              // Card(
-              //     color: kLightBackColor,
-              //     child: ListTile(
-              //       title:
-              //           ,
-              //       subtitle: Text(
-              //         blurValue,
-              //         style: kCheckBoxTextStyle,
-              //       ),
-              //     )),
+                      ),
+                    )
+                  : SizedBox(
+                      width: double.infinity,
+                      child: AspectRatio(
+                        aspectRatio: widget.ratio!,
+                        child: Container(
+                            padding: const EdgeInsets.all(15),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(color: Colors.white54),
+                              shape: BoxShape.rectangle,
+                              image: DecorationImage(
+                                fit: BoxFit.fitWidth,
+                                alignment: FractionalOffset.center,
+                                image: FileImage(widget.image),
+                              ),
+                            )),
+                      ),
+                    ),
               SizedBox(
                 height: Get.size.height * 0.1,
               ),
@@ -217,24 +221,33 @@ class _ClassifyState extends State<Classify> with TickerProviderStateMixin {
               ),
             ],
             if (double.parse(sharpValue) > 80) ...[
-              SizedBox(
-                width: double.infinity,
-                child: AspectRatio(
-                  aspectRatio: widget.ratio,
-                  child: Container(
-                      padding: const EdgeInsets.all(15),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: Colors.white54),
-                        shape: BoxShape.rectangle,
-                        image: DecorationImage(
-                          fit: BoxFit.fitWidth,
-                          alignment: FractionalOffset.center,
-                          image: FileImage(widget.image),
+              widget.isFromSelfieScreen
+                  ? SizedBox(
+                      height: Get.size.height * 0.6,
+                      child: Image.file(
+                        File(
+                          widget.image.path,
                         ),
-                      )),
-                ),
-              ),
+                      ),
+                    )
+                  : SizedBox(
+                      width: double.infinity,
+                      child: AspectRatio(
+                        aspectRatio: widget.ratio!,
+                        child: Container(
+                            padding: const EdgeInsets.all(15),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(color: Colors.white54),
+                              shape: BoxShape.rectangle,
+                              image: DecorationImage(
+                                fit: BoxFit.fitWidth,
+                                alignment: FractionalOffset.center,
+                                image: FileImage(widget.image),
+                              ),
+                            )),
+                      ),
+                    ),
               SizedBox(
                 height: Get.size.height * 0.1,
               ),
@@ -248,10 +261,14 @@ class _ClassifyState extends State<Classify> with TickerProviderStateMixin {
                         Get.textTheme.headline5?.copyWith(color: Colors.black),
                   ),
                   onPressed: () {
-                    showToast(
-                        msg: "Registration Success", backColor: Colors.green);
-                    Get.to(() => const LoginScreen(),
-                        transition: Transition.native);
+                    widget.isFromSelfieScreen
+                        ? clubEntryController.saveImageFile(widget.image)
+                        : signUpController.signUp(
+                            context: context,
+                            imageFile: widget.image,
+                            userData: signUpController.user);
+                    // showToast(
+                    //     msg: "Registration Success", backColor: Colors.green);
                   },
                 ),
               ),

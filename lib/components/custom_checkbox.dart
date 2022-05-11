@@ -8,16 +8,18 @@ import '../config/app_constants.dart';
 class CheckBoxTextField extends StatelessWidget {
   const CheckBoxTextField(
       {Key? key,
-      required this.callback,
+      required this.onChanged,
       required this.value,
       required this.hintText,
-      required this.textEditingController})
+      required this.textEditingController,
+      this.autofillHints})
       : super(key: key);
 
-  final void Function(bool?)? callback;
+  final void Function(bool?)? onChanged;
   final String hintText;
+  final Iterable<String>? autofillHints;
   final TextEditingController textEditingController;
-  final bool value;
+  final bool? value;
   @override
   Widget build(BuildContext context) {
     return TextFieldContainer(
@@ -28,6 +30,7 @@ class CheckBoxTextField extends StatelessWidget {
             child: TextField(
               textCapitalization: TextCapitalization.words,
               enabled: value,
+              autofillHints: autofillHints,
               enableIMEPersonalizedLearning: true,
               enableInteractiveSelection: true,
               textInputAction: TextInputAction.next,
@@ -59,8 +62,8 @@ class CheckBoxTextField extends StatelessWidget {
               width: 1.5,
             ),
             // shape: ,
-            value: value,
-            onChanged: callback,
+            value: value ?? false,
+            onChanged: onChanged,
           ),
         ],
       ), //C,

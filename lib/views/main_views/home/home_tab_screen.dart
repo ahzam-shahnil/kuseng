@@ -1,6 +1,3 @@
-// Dart imports:
-import 'dart:async';
-
 // Flutter imports:
 import 'package:flutter/material.dart';
 
@@ -10,7 +7,12 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 // Project imports:
 import 'package:kuseng/config/app_constants.dart';
-import 'package:kuseng/views/main_views/home/entry_info_screen.dart';
+import 'package:kuseng/config/controllers.dart';
+import 'package:kuseng/utils/auth_helper_firebase.dart';
+import 'package:kuseng/utils/toast_dialogs.dart';
+import 'package:location/location.dart';
+
+import 'entry_info/entry_info_screen.dart';
 
 class HomeTabScreen extends StatefulWidget {
   const HomeTabScreen({Key? key}) : super(key: key);
@@ -20,18 +22,57 @@ class HomeTabScreen extends StatefulWidget {
 }
 
 class _HomeTabScreenState extends State<HomeTabScreen> {
-  final Completer<GoogleMapController> _controller = Completer();
+  late GoogleMapController _controller;
+  final LatLng _initialcameraposition = const LatLng(20.5937, 78.9629);
+  final Location _location = Location();
+  final Map<String, Marker> _markers = {};
+  void _onMapCreated(GoogleMapController _cntlr) async {
+    _controller = _cntlr;
+    _location.onLocationChanged.listen(
+        (l) async {
+          _controller.animateCamera(
+            CameraUpdate.newCameraPosition(
+              CameraPosition(
+                  target: LatLng(l.latitude!, l.longitude!), zoom: 15),
+            ),
+          );
+          await Future.delayed(const Duration(seconds: 4));
+        },
+        cancelOnError: true,
+        onError: (e) {
+          showToast(msg: 'Error Getting Location Data');
+        });
+    final clubsList = await AuthHelperFirebase.fetchClubs();
 
-  static const CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 14.4746,
-  );
+    setState(() {
+      _markers.clear();
+      for (final club in clubsList) {
+        final marker = Marker(
+          markerId: MarkerId(club.clubDocID),
+          visible: true,
+          position: LatLng(club.location.latitude, club.location.longitude),
+          infoWindow: InfoWindow(
+              title: club.name,
+              snippet: club.street,
+              onTap: () {
+                // log.d(club);
+                clubEntryController.generateCaseID();
+                Get.to(
+                    () => EntryInfoScreen(
+                          club: club,
+                        ),
+                    transition: Transition.native);
+              }),
+        );
+        _markers[club.clubDocID] = marker;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      backgroundColor: Colors.transparent,
       extendBodyBehindAppBar: true,
       body: SafeArea(
         child: Stack(
@@ -39,28 +80,25 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
             Align(
               alignment: Alignment.bottomCenter,
               child: SizedBox(
-                height: Get.size.height * 0.73,
+                height: Get.size.height * 0.7,
                 child: GoogleMap(
                   mapType: MapType.hybrid,
                   // compassEnabled: true,
                   mapToolbarEnabled: true,
-                  // myLocationButtonEnabled: true,
-                  // myLocationEnabled: true,
-                  // rotateGesturesEnabled: true,
+                  initialCameraPosition:
+                      CameraPosition(target: _initialcameraposition),
+                  markers: _markers.values.toSet(),
+                  onMapCreated: _onMapCreated,
+                  myLocationEnabled: true,
                   scrollGesturesEnabled: true,
                   zoomGesturesEnabled: true,
-                  zoomControlsEnabled: true,
-                  onLongPress: (LatLng value) {
-                    log.d(value);
-                    Get.to(() => const EntryInfoScreen());
-                  },
-                  initialCameraPosition: _kGooglePlex,
-                  onMapCreated: (GoogleMapController controller) {
-                    _controller.complete(controller);
-                  },
                 ),
               ),
             ),
+            // : ElevatedButton.icon(
+            //     onPressed: () {},
+            //     icon: const Icon(Icons.gps_fixed_rounded),
+            //     label: const Text('Enable Location')),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               child: Column(

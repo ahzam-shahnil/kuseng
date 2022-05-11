@@ -5,35 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 // Project imports:
-import 'package:kuseng/components/custom_checkbox.dart';
+import 'package:kuseng/components/rectangular_password_field.dart';
 import 'package:kuseng/components/rounded_rectangular_input_field.dart';
 import 'package:kuseng/components/switch_row_tile.dart';
+import 'package:kuseng/components/switch_tile_textfield.dart';
 import 'package:kuseng/config/app_constants.dart';
-import 'package:kuseng/views/main_views/auth/sign_up/signup_screen_two.dart';
+import 'package:kuseng/config/controllers.dart';
 import 'package:kuseng/widgets/custom_drop_down.dart';
 
-class SignupScreenOne extends StatefulWidget {
-  const SignupScreenOne({Key? key}) : super(key: key);
-
-  @override
-  State<SignupScreenOne> createState() => _SignupScreenOneState();
-}
-
-class _SignupScreenOneState extends State<SignupScreenOne> {
-  bool isFullNameSelected = false;
-  bool isUsernameSelected = false;
-
-  final _physicalTileController = ValueNotifier<bool>(false);
-  final _queerTileController = ValueNotifier<bool>(false);
-  final _migrationTileController = ValueNotifier<bool>(false);
-  final _motherLngTileController = ValueNotifier<bool>(false);
-  final _anotherMotherLngTileController = ValueNotifier<bool>(false);
-  final _identifyAsBlackTileController = ValueNotifier<bool>(false);
-  final _bornTileController = ValueNotifier<bool>(false);
-  final TextEditingController fullNameController = TextEditingController();
-  final TextEditingController userNameController = TextEditingController();
-  final TextEditingController physicalTextController = TextEditingController();
-  final TextEditingController motherLngTextController = TextEditingController();
+class SignupScreen extends StatelessWidget {
+  const SignupScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -57,9 +38,7 @@ class _SignupScreenOneState extends State<SignupScreenOne> {
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: _width * 0.08),
             child: ListView(
-              // padding: const EdgeInsets.all(30.0),
               physics: const AlwaysScrollableScrollPhysics(),
-              // shrinkWrap: true,
               primary: true,
               children: [
                 SizedBox(
@@ -76,31 +55,36 @@ class _SignupScreenOneState extends State<SignupScreenOne> {
                 SizedBox(
                   height: Get.size.height * 0.025,
                 ),
-                CheckBoxTextField(
-                  textEditingController: fullNameController,
-                  callback: (bool? value) {
-                    if (value != null) {
-                      setState(() {
-                        isFullNameSelected = value;
-                      });
-                      log.d('Selected : $value');
-                    }
-                  },
-                  value: isFullNameSelected,
-                  hintText: 'Vollständiger Name (nicht öffentlich)',
+                RoundedRectangleInputField(
+                  hintText: 'Email',
+                  icon: null,
+                  textController: signUpController.emailController,
+                  textInputType: TextInputType.name,
+                  autofillHints: const [AutofillHints.email],
                 ),
-                CheckBoxTextField(
-                  callback: (bool? value) {
-                    if (value != null) {
-                      setState(() {
-                        isUsernameSelected = value;
-                      });
-                      log.d('Selected : $isUsernameSelected');
-                    }
-                  },
-                  value: isUsernameSelected,
-                  textEditingController: userNameController,
+                SizedBox(
+                  height: _height * 0.015,
+                ),
+                RectangularPasswordField(
+                  autofillHints: const [AutofillHints.password],
+                  textController: signUpController.passwordController,
+                ),
+                SizedBox(
+                  height: _height * 0.015,
+                ),
+                RoundedRectangleInputField(
+                  hintText: 'Vollständiger Name (nicht öffentlich)',
+                  textCapitalization: TextCapitalization.words,
+                  textController: signUpController.fullNameController,
+                  autofillHints: const [AutofillHints.name],
+                ),
+                SizedBox(
+                  height: _height * 0.015,
+                ),
+                RoundedRectangleInputField(
                   hintText: 'Benutzername (öffentlich)',
+                  textController: signUpController.userNameController,
+                  autofillHints: const [AutofillHints.newUsername],
                 ),
                 SizedBox(
                   height: _height * 0.015,
@@ -115,26 +99,26 @@ class _SignupScreenOneState extends State<SignupScreenOne> {
                 SizedBox(
                   height: _height * 0.05,
                 ),
-                const CustomDropDown(),
+                CustomDropDown(),
                 SizedBox(
                   height: _height * 0.03,
                 ),
                 SwitchRowTile(
-                  controller: _physicalTileController,
+                  controller: signUpController.physicalTileController,
                   width: _width,
                   height: _height,
                   text: kDisabilityText + '?',
                 ),
                 SwitchTileTextField(
-                  controller: _physicalTileController,
-                  textController: physicalTextController,
+                  controller: signUpController.physicalTileController,
+                  textController: signUpController.physicalTextController,
                   hintText: 'Körperliche Einschränkungen',
                 ),
                 SizedBox(
                   height: _height * 0.03,
                 ),
                 SwitchRowTile(
-                  controller: _queerTileController,
+                  controller: signUpController.queerTileController,
                   width: _width,
                   height: _height,
                   text: 'Identifizierst du dich als Quer?',
@@ -143,7 +127,7 @@ class _SignupScreenOneState extends State<SignupScreenOne> {
                   height: _height * 0.03,
                 ),
                 SwitchRowTile(
-                  controller: _bornTileController,
+                  controller: signUpController.bornTileController,
                   width: _width,
                   height: _height,
                   text: """Bist du in Deutschland geboren?""",
@@ -152,7 +136,7 @@ class _SignupScreenOneState extends State<SignupScreenOne> {
                   height: _height * 0.03,
                 ),
                 SwitchRowTile(
-                  controller: _migrationTileController,
+                  controller: signUpController.migrationTileController,
                   width: _width,
                   height: _height,
                   text: kMigrationText,
@@ -161,14 +145,14 @@ class _SignupScreenOneState extends State<SignupScreenOne> {
                   height: _height * 0.03,
                 ),
                 SwitchRowTile(
-                  controller: _motherLngTileController,
+                  controller: signUpController.motherLngTileController,
                   width: _width,
                   height: _height,
                   text: kMotherLngGerText,
                 ),
                 SwitchTileTextField(
-                  controller: _motherLngTileController,
-                  textController: motherLngTextController,
+                  controller: signUpController.motherLngTileController,
+                  textController: signUpController.motherLngTextController,
                   hintText: 'Muttersprache eingeben',
                   isInvert: true,
                 ),
@@ -176,7 +160,7 @@ class _SignupScreenOneState extends State<SignupScreenOne> {
                   height: _height * 0.03,
                 ),
                 SwitchRowTile(
-                  controller: _anotherMotherLngTileController,
+                  controller: signUpController.otherLanguageTileController,
                   width: _width,
                   height: _height,
                   text: kAnotherMotherLngGerText,
@@ -185,7 +169,7 @@ class _SignupScreenOneState extends State<SignupScreenOne> {
                   height: _height * 0.03,
                 ),
                 SwitchRowTile(
-                  controller: _identifyAsBlackTileController,
+                  controller: signUpController.identifyAsBlackTileController,
                   width: _width,
                   height: _height,
                   text: kBlackIdentifyText,
@@ -202,9 +186,9 @@ class _SignupScreenOneState extends State<SignupScreenOne> {
                   height: _height * 0.03,
                 ),
                 TextButton(
-                  onPressed: () {
-                    Get.to(() => const SignUpScreenTwo(),
-                        transition: Transition.native);
+                  onPressed: () async {
+                    FocusScope.of(context).unfocus();
+                    await signUpController.saveUserData(context);
                   },
                   child: Text(
                     kOnBoardBtnText,
@@ -216,46 +200,6 @@ class _SignupScreenOneState extends State<SignupScreenOne> {
           ),
         ),
       ),
-    );
-  }
-}
-
-class SwitchTileTextField extends StatelessWidget {
-  final ValueNotifier<bool> controller;
-  final TextEditingController textController;
-  final String hintText;
-  final bool isInvert;
-  const SwitchTileTextField({
-    Key? key,
-    required this.controller,
-    required this.textController,
-    required this.hintText,
-    this.isInvert = false,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-      valueListenable: controller,
-      builder: (_, bool value, __) {
-        return !isInvert
-            ? value
-                ? RoundedRectangleInputField(
-                    hintText: hintText,
-                    textCapitalization: TextCapitalization.sentences,
-                    textInputType: TextInputType.text,
-                    textController: textController,
-                  )
-                : const SizedBox()
-            : value
-                ? const SizedBox()
-                : RoundedRectangleInputField(
-                    hintText: hintText,
-                    textCapitalization: TextCapitalization.sentences,
-                    textInputType: TextInputType.text,
-                    textController: textController,
-                  );
-      },
     );
   }
 }

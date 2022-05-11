@@ -6,12 +6,28 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 // Project imports:
-import 'package:kuseng/views/intro_views/splash_screen.dart';
+import 'package:kuseng/config/firebase.dart';
+import 'package:kuseng/controllers/club_entry_controller.dart';
+import 'package:kuseng/controllers/login_controller.dart';
+import 'package:kuseng/controllers/sign_up_controller.dart';
+import 'package:kuseng/views/main_views/home/home_screen.dart';
 import 'config/app_constants.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // Flython.initialize(OpenCV.cmdToGray,);
+
+  await initialization.then((value) {
+    // Get.put(UserController());
+    Get.put(LoginController());
+    // Get.put(ProductController());
+    // Get.put(CartController());
+    Get.put(SignUpController());
+    Get.put(ClubEntryController());
+    // Get.put(ProfileController());
+    // Get.put(ProductAddController());
+    // Get.put(PaymentsController());
+    // Get.put(DigiController());
+  });
   runApp(const MyApp());
 }
 
@@ -70,12 +86,13 @@ class MyApp extends StatelessWidget {
           // color: kPrimaryColor,
           systemOverlayStyle: SystemUiOverlayStyle.light,
           elevation: 0,
+
           // iconTheme: const IconThemeData(color: kScanBackColor),
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(15),
-                bottomRight: Radius.circular(15)),
-          ),
+          // shape: const RoundedRectangleBorder(
+          //   borderRadius: BorderRadius.only(
+          //       bottomLeft: Radius.circular(15),
+          //       bottomRight: Radius.circular(15)),
+          // ),
         ),
         // fontFamily: 'Lato',
         iconTheme: const IconThemeData(color: Colors.white),
@@ -85,7 +102,7 @@ class MyApp extends StatelessWidget {
       // ThemeData(
       //   primarySwatch: const Color(0xff4124AA),
       // ),
-      home: const SpalshScreen(),
+      home: const HomeScreen(),
     );
   }
 }

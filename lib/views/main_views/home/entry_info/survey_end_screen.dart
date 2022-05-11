@@ -7,8 +7,9 @@ import 'package:get/get.dart';
 
 // Project imports:
 import 'package:kuseng/config/app_constants.dart';
+import 'package:kuseng/config/controllers.dart';
 import 'package:kuseng/gen/assets.gen.dart';
-import 'home_screen.dart';
+import '../home_screen.dart';
 
 class SurveyEndScreen extends StatelessWidget {
   const SurveyEndScreen({Key? key}) : super(key: key);
@@ -36,24 +37,24 @@ class SurveyEndScreen extends StatelessWidget {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  ElevatedButton(
-                    onPressed: () => Get.back(),
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8)),
-                      primary: kLightBackColor,
-                    ),
-                    child: const Icon(
-                      Icons.arrow_back_ios_new_outlined,
-                    ),
-                  ),
+                  // ElevatedButton(
+                  //   onPressed: () => Get.back(),
+                  //   style: ElevatedButton.styleFrom(
+                  //     shape: RoundedRectangleBorder(
+                  //         borderRadius: BorderRadius.circular(8)),
+                  //     primary: kLightBackColor,
+                  //   ),
+                  //   child: const Icon(
+                  //     Icons.arrow_back_ios_new_outlined,
+                  //   ),
+                  // ),
                   const SizedBox(
                     width: 20,
                   ),
-                  Text(
-                    'F-123456',
-                    style: Get.textTheme.headline4,
-                  ),
+                  Obx(() => Text(
+                        clubEntryController.caseID.value,
+                        style: Get.textTheme.headline4,
+                      )),
                 ],
               ),
               SizedBox(
