@@ -9,8 +9,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:kuseng/config/app_constants.dart';
 import 'package:kuseng/config/controllers.dart';
 import 'package:kuseng/utils/auth_helper_firebase.dart';
-import 'package:kuseng/utils/toast_dialogs.dart';
-import 'package:location/location.dart';
 
 import 'entry_info/entry_info_screen.dart';
 
@@ -24,24 +22,24 @@ class HomeTabScreen extends StatefulWidget {
 class _HomeTabScreenState extends State<HomeTabScreen> {
   late GoogleMapController _controller;
   final LatLng _initialcameraposition = const LatLng(20.5937, 78.9629);
-  final Location _location = Location();
+  // final Location _location = Location();
   final Map<String, Marker> _markers = {};
   void _onMapCreated(GoogleMapController _cntlr) async {
     _controller = _cntlr;
-    _location.onLocationChanged.listen(
-        (l) async {
-          _controller.animateCamera(
-            CameraUpdate.newCameraPosition(
-              CameraPosition(
-                  target: LatLng(l.latitude!, l.longitude!), zoom: 15),
-            ),
-          );
-          await Future.delayed(const Duration(seconds: 4));
-        },
-        cancelOnError: true,
-        onError: (e) {
-          showToast(msg: 'Error Getting Location Data');
-        });
+    // _location.onLocationChanged.listen(
+    //     (l) async {
+    //       _controller.animateCamera(
+    //         CameraUpdate.newCameraPosition(
+    //           CameraPosition(
+    //               target: LatLng(l.latitude!, l.longitude!), zoom: 15),
+    //         ),
+    //       );
+    //       await Future.delayed(const Duration(seconds: 4));
+    //     },
+    //     cancelOnError: true,
+    //     onError: (e) {
+    //       showToast(msg: 'Error Getting Location Data');
+    //     });
     final clubsList = await AuthHelperFirebase.fetchClubs();
 
     setState(() {

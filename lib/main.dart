@@ -10,6 +10,8 @@ import 'package:kuseng/config/firebase.dart';
 import 'package:kuseng/controllers/club_entry_controller.dart';
 import 'package:kuseng/controllers/login_controller.dart';
 import 'package:kuseng/controllers/sign_up_controller.dart';
+import 'package:kuseng/views/intro_views/splash_screen.dart';
+import 'package:kuseng/views/main_views/auth/sign_up/camera_screen.dart';
 import 'package:kuseng/views/main_views/home/home_screen.dart';
 import 'config/app_constants.dart';
 
@@ -102,7 +104,7 @@ class MyApp extends StatelessWidget {
       // ThemeData(
       //   primarySwatch: const Color(0xff4124AA),
       // ),
-      home: const HomeScreen(),
+      home: const SpalshScreen(),
     );
   }
 }

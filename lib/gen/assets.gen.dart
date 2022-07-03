@@ -5,12 +5,9 @@
 
 // ignore_for_file: directives_ordering,unnecessary_import
 
-// Flutter imports:
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-
-// Package imports:
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter/services.dart';
 
 class $AssetsImagesGen {
   const $AssetsImagesGen();
@@ -32,6 +29,16 @@ class $AssetsImagesGen {
       const AssetGenImage('assets/images/splash_image.png');
 
   $AssetsImagesSvgsGen get svgs => const $AssetsImagesSvgsGen();
+}
+
+class $AssetsTfliteGen {
+  const $AssetsTfliteGen();
+
+  /// File path: assets/tflite/labels.txt
+  String get labels => 'assets/tflite/labels.txt';
+
+  /// File path: assets/tflite/model.tflite
+  String get model => 'assets/tflite/model.tflite';
 }
 
 class $AssetsImagesLoginScreenGen {
@@ -87,6 +94,7 @@ class Assets {
   Assets._();
 
   static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsTfliteGen tflite = $AssetsTfliteGen();
 }
 
 class AssetGenImage extends AssetImage {

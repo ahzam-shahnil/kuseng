@@ -4,16 +4,14 @@ import 'dart:io';
 // Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 // Package imports:
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:kuseng/config/controllers.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:tflite/tflite.dart';
 
 // Project imports:
 import 'package:kuseng/config/app_constants.dart';
+import 'package:tflite/tflite.dart';
 
 class Classify extends StatefulWidget {
   const Classify({
@@ -46,7 +44,7 @@ class _ClassifyState extends State<Classify> with TickerProviderStateMixin {
   void dispose() {
     _recognitions.clear();
     _controller.dispose();
-    Tflite.close();
+    // Tflite.close();
     super.dispose();
   }
 
@@ -73,17 +71,32 @@ class _ClassifyState extends State<Classify> with TickerProviderStateMixin {
     // Tflite.close();
     try {
       await Tflite.loadModel(
-        model: "assets/tflite/model.tflite",
-        labels: "assets/tflite/labels.txt",
-      );
+          model: "assets/tflite/model.tflite",
+          labels: "assets/tflite/labels.txt",
+          isAsset: true);
     } on PlatformException {
       log.e("Failed to load the model");
     }
   }
 
+  // Future<String> _getModel(String assetPath) async {
+  //   if (io.Platform.isAndroid) {
+  //     return 'flutter_assets/$assetPath';
+  //   }
+  //   final path = '${(await getApplicationSupportDirectory()).path}/$assetPath';
+  //   await io.Directory(dirname(path)).create(recursive: true);
+  //   final file = io.File(path);
+  //   if (!await file.exists()) {
+  //     final byteData = await rootBundle.load(assetPath);
+  //     await file.writeAsBytes(byteData.buffer
+  //         .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
+  //   }
+  //   return file.path;
+  // }
+
   _predictImage(File image) async {
     _setLoading(true);
-
+    // final inputImage = InputImage.fromFile(file);
     await _checkImageForBlur(image);
 
     _setLoading(false);
@@ -91,16 +104,11 @@ class _ClassifyState extends State<Classify> with TickerProviderStateMixin {
 
   _checkImageForBlur(File image) async {
     var recognitions = await Tflite.runModelOnImage(
-        path: image.path, // required
-        imageMean: 0.0, // defaults to 117.0
-        imageStd: 255.0, // defaults to 1.0
-        numResults: 2, // defaults to 5
-        threshold: 0.2, // defaults to 0.1
-        asynch: true // defaults to true
-        );
+      path: image.path,
+    );
+    log.d(recognitions);
     setState(() {
       _recognitions = recognitions ?? [];
-      // log.d(_recognitions);
 
       if (_recognitions[0]['label'].toString() == "BLUR") {
         blurGroup = "BLUR";
@@ -261,12 +269,12 @@ class _ClassifyState extends State<Classify> with TickerProviderStateMixin {
                         Get.textTheme.headline5?.copyWith(color: Colors.black),
                   ),
                   onPressed: () {
-                    widget.isFromSelfieScreen
-                        ? clubEntryController.saveImageFile(widget.image)
-                        : signUpController.signUp(
-                            context: context,
-                            imageFile: widget.image,
-                            userData: signUpController.user);
+                    // widget.isFromSelfieScreen
+                    //     ? clubEntryController.saveImageFile(widget.image)
+                    //     : signUpController.signUp(
+                    //         context: context,
+                    //         imageFile: widget.image,
+                    //         userData: signUpController.user);
                     // showToast(
                     //     msg: "Registration Success", backColor: Colors.green);
                   },
